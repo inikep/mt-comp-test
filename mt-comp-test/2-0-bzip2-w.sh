@@ -2,21 +2,21 @@
 
 ARCH=silesia.tar
 
-sh comp-bzip2_w32.sh
+./comp-bzip2_w32.sh
 
 echo
 echo "#### ls"
 wc -c $ARCH $ARCH*.bz2* | sort -r
 
 echo
-sh dec-bzip2_w32.sh
+./dec-bzip2_w32.sh
 
 echo "####"
-sh comp-bzip2_w64.sh
+./comp-bzip2_w64.sh
 
 echo
 echo "#### ls"
 wc -c $ARCH $ARCH*.bz2* | sort -r
 
 echo
-sh dec-bzip2_w64.sh
+./dec-bzip2_w64.sh

@@ -2,11 +2,11 @@
 
 ARCH=silesia.tar
 
-sh comp-pbzip2.sh
+./comp-pbzip2.sh
 
 echo
 echo "#### ls"
 wc -c $ARCH $ARCH*.bz2* | sort -r
 
 echo
-sh dec-pbzip2.sh
+./dec-pbzip2.sh
