@@ -6,7 +6,7 @@ steps:
 
 - script: |
     set -e
-    sudo apt install libbz2-dev
+    sudo apt install libbz2-dev libarchive-dev
 
     cd mt-comp-test
     ./1-prep.sh
