@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 NPROC=$(command -v nproc)
 NCPU=$($NPROC)

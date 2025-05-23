@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 [ -z $THREADS ] && THREADS=16
 ARCHIVE="$1"

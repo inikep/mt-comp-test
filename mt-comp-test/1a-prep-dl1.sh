@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 NULLDEV=/dev/null
 #NULLDEV=nul # windows

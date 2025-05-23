@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -euo pipefail
 
 [ -f pbzip2-1.1.13.tar.gz ] || \
