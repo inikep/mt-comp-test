@@ -1,4 +1,5 @@
 #!/bin/bash
+set -eo pipefail
 
 NPROC=$(command -v nproc)
 NCPU=$($NPROC)
