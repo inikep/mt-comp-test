@@ -1,4 +1,5 @@
 #!/bin/sh
+set -euo pipefail
 
 [ -f pbzip2-1.1.13.tar.gz ] || \
     wget https://launchpad.net/pbzip2/1.1/1.1.13/+download/pbzip2-1.1.13.tar.gz

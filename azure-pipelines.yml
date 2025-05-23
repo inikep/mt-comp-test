@@ -1,0 +1,11 @@
+pool:
+  vmImage: 'ubuntu-24.04'
+
+steps:
+- checkout: self
+
+- script: |
+    cd mt-comp-test
+    ./1-prep.sh
+    ./2-test.sh
+  displayName: 'Run prep and test scripts'
