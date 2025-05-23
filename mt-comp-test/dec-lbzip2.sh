@@ -43,7 +43,7 @@ max()
 
 [ -f $ARCHIVE ] || { echo file "$ARCHIVE" not found; exit 1; }
 
-PAK=lbzip2
+PAK=./lbzip2
 EXT=.bz2
 OPTS=
 OPT_TH=-n
