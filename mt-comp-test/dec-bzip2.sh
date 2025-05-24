@@ -4,6 +4,7 @@ echo; echo "#### $0 ####"; echo
 
 [ -z $THREADS ] && THREADS=16
 NPROC=$(nproc); if [ $NPROC -lt $THREADS ]; then THREADS=$NPROC; fi
+THREADS=1
 echo "using $THREADS threads"; echo
 
 #ARCHIVE="$1"
@@ -11,23 +12,14 @@ echo "using $THREADS threads"; echo
 
 NULLDEV=/dev/null
 UNAME=$(uname | head -c 5 -); if [ "$UNAME" = "MINGW" ]; then NULLDEV=nul; fi
-
-[ -z $SLEEPTS ] && SLEEPTS=2
-
-sleepts()
-    {
-    sleepts=0
-    if [ $((SLEEPTS)) -gt 0 ]; then sleepts=$SLEEPTS; fi
-    if [ $(($1)) -gt 0 ]; then sleepts=$1; fi
-    sleep $sleepts
-    }
+NULLDEV=out
 
 reps_lv()
     {
     case "$1" in
-    1) echo 2 ;;
-    5) echo 2 ;;
-    9) echo 2 ;;
+    1) echo 1 ;;
+    5) echo 1 ;;
+    9) echo 1 ;;
     esac
     }
 
@@ -48,7 +40,7 @@ max()
 
 [ -f $ARCHIVE ] || { echo file "$ARCHIVE" not found; exit 1; }
 
-PAK=./pbzip2
+PAK=./bzip2
 EXT=.bz2
 OPTS=
 OPT_TH=-p
@@ -61,14 +53,13 @@ for lv in $LEVELS; do
     ARC=$ARCHIVE$EXT-$lv
     echo "## $PAK -d -$lv"
     for ((th=1; th<=$THREADS; th++)); do
-        CMD="$PAK $OPT_TH$th -f -d -c $ARC > $NULLDEV"
+        CMD="$PAK -f -d -c $ARC > $NULLDEV"
         REPS=`max $(reps_lv $lv) $(reps_th $th)`
         echo $ $CMD "xx $REPS"
         time for ((i=0; i<$REPS; i++)); do
             eval $CMD
         done # for th;
-        sleepts
-        echo
+    echo
     done
     echo
 done # for lv;

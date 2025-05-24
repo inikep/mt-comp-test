@@ -1,5 +1,4 @@
-#!/bin/bash
-set -eo pipefail
+#!/bin/sh
 
 NPROC=$(command -v nproc)
 NCPU=$($NPROC)
@@ -8,12 +7,29 @@ NCPU=$($NPROC)
 USE_SYS_PROGS=1
 #EXEX=.exe
 UNAME=Linux # UNAME=$(uname); if [ "${UNAME:0:5}" = "MINGW" ]; then EXEX=.exe; fi
+MT_TEST_PWD=$(pwd)
 
 usage_dl2()
 {
     echo "file $1 not found; donwloading with 1b-prep-dl2.sh"
     ./1b-prep-dl2.sh
 }
+
+echo
+echo "######## $0 ########"
+echo
+
+## bzip2
+FIN=bzip2-1.0.8.tar.gz
+printf "\n## $FIN ##\n\n"
+[ -f "$FIN" ] || usage_dl2 "$FIN"
+tar xzf "$FIN"
+DIR=${FIN%%.tar.gz}
+(
+    cd "$DIR"
+    make -j$NCPU && cp bzip2$EXEX ../
+)
+BZIP2_DIR=$DIR
 
 ## pbzip2
 FIN=pbzip2-1.1.13.tar.gz
@@ -23,8 +39,10 @@ tar xzf "$FIN"
 DIR=${FIN%%.tar.gz}
 (
     cd "$DIR"
-    make -j$NCPU && cp pbzip2$EXEX ../
+    make -j$NCPU LDLIBS=$MT_TEST_PWD/$BZIP2_DIR/libbz2.a && \
+        cp pbzip2$EXEX ../
 )
+
 
 ## pigz
 FIN=pigz-master.tar.gz
@@ -88,6 +106,7 @@ else
 fi
 unset PAK
 
+
 ## xz
 PAK=xz
 if [ -z $(command -v $PAK) ] || [ $((USE_SYS_PROGS)) -eq 0 ]; then
@@ -109,6 +128,50 @@ else
     cp $(which xz) .
 fi
 unset PAK
+
+
+## libarchive
+
+FIN=libarchive-3.4.2.tar.gz
+printf "\n## $FIN ##\n\n"
+[ -f "$FIN" ] || usage_dl2 "$FIN"
+tar xzf "$FIN"
+
+DIR=${FIN%%.tar.gz}
+LIBARCHIVE_DIR=$DIR
+(
+    cd "$DIR"
+    if [ ! -f config.status ]; then
+        ./configure
+    fi
+    make -j$NCPU
+)
+
+
+## pixz
+PAK=pixz
+if [ -z $(command -v $PAK) ] || [ $((USE_SYS_PROGS)) -eq 0 ]; then
+
+FIN=pixz-master.tar.gz
+printf "\n## $FIN ##\n\n"
+[ -f "$FIN" ] || usage_dl2 "$FIN"
+tar xzf "$FIN"
+
+DIR=${FIN%%.tar.gz}
+(
+    cd "$DIR"
+    if [ ! -f config.status ]; then
+        ./autogen.sh && \
+        ./configure --without-manpage --includedir=$MT_TEST_PWD/xz-master/src/liblzma/api/lzma.h
+    fi
+    make -j$NCPU LZMA_LIBS=$MT_TEST_PWD/xz-master/src/liblzma/.libs/liblzma.a LIBARCHIVE_LIBS=$MT_TEST_PWD/$LIBARCHIVE_DIR/.libs/libarchive.a && \
+        cp src/pixz$EXEX ../
+)
+else
+    cp $(which xz) .
+fi
+unset PAK
+
 
 ## zstd-mt
 FIN=zstd-dev.tar.gz
@@ -176,6 +239,7 @@ ret=$?
 if [ $ret -eq 0 ]; then
     true
 else
+rm ./lbzip2
 
 FIN=lbzip2-master.tar.gz
 printf "\n## $FIN ##\n\n"
@@ -184,7 +248,7 @@ tar xzf "$FIN"
 DIR=${FIN%%.tar.gz}
 LBZIP2=$DIR
 (
-    unzip -q lbzip2-master-ac-1.zip
+    #unzip -q lbzip2-master-ac-1.zip
     cd "$DIR"
     lbzip2-autoconf-make.sh
 )
@@ -194,3 +258,4 @@ else
     cp $(which lbzip2) .
 fi
 unset PAK
+

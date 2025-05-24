@@ -1,43 +1,51 @@
-#!/bin/bash
+#!/bin/sh
+
+echo
+echo "######## $0 ########"
+echo
 
 echo
 echo "########"
 echo
-#./2-0-bzip2-w.sh
+sh 2-0-bzip2.sh
 sleep 5
 echo
 echo "########"
 echo
-#./2-1-pbzip2.sh
-./2-1-lbzip2.sh
+sh 2-1-pbzip2.sh
 sleep 5
 echo
 echo "########"
 echo
-./2-2-pigz.sh
+sh 2-1-lbzip2.sh
 sleep 5
 echo
 echo "########"
 echo
-./2-3-plzip.sh
+sh 2-2-pigz.sh
 sleep 5
 echo
 echo "########"
 echo
-./2-4-pixz.sh
+sh 2-3-plzip.sh
 sleep 5
 echo
 echo "########"
 echo
-./2-5-xz.sh
+sh 2-4-pixz.sh
 sleep 5
 echo
 echo "########"
 echo
-./2-6-ztsdmt.sh
+sh 2-5-xz.sh
 sleep 5
 echo
 echo "########"
 echo
-./2-7-ztsd.sh
+sh 2-6-ztsdmt.sh
+sleep 5
+echo
+echo "########"
+echo
+sh 2-7-ztsd.sh
 

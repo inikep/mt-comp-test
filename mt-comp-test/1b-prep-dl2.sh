@@ -1,6 +1,11 @@
-#!/bin/bash
-set -eo pipefail
+#!/bin/sh
 
+echo
+echo "######## $0 ########"
+echo
+
+[ -f bzip2-1.0.8.tar.gz ] || \
+    wget https://sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz
 [ -f pbzip2-1.1.13.tar.gz ] || \
     wget https://launchpad.net/pbzip2/1.1/1.1.13/+download/pbzip2-1.1.13.tar.gz
 
@@ -9,12 +14,6 @@ set -eo pipefail
     {
     wget https://github.com/madler/pigz/archive/refs/heads/master.tar.gz && \
     mv master.tar.gz pigz-master.tar.gz
-    }
-
-[ -f pixz-master.tar.gz ] || \
-    {
-    wget https://github.com/vasi/pixz/archive/refs/heads/master.tar.gz && \
-    mv master.tar.gz pixz-master.tar.gz
     }
 
 
@@ -29,6 +28,16 @@ set -eo pipefail
     {
     wget https://github.com/tukaani-project/xz/archive/refs/heads/master.tar.gz && \
     mv master.tar.gz xz-master.tar.gz
+    }
+
+[ -f libarchive-3.4.2.tar.gz ] || \
+    {
+    wget http://www.libarchive.org/downloads/libarchive-3.4.2.tar.gz
+    }
+[ -f pixz-master.tar.gz ] || \
+    {
+    wget https://github.com/vasi/pixz/archive/refs/heads/master.tar.gz && \
+    mv master.tar.gz pixz-master.tar.gz
     }
 
 [ -f zstd-dev.tar.gz ] || \
