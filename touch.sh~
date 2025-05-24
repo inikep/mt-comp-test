@@ -5,7 +5,7 @@ echo $idx
 
 git add ./touch
 git commit -m"touch/$idx"
-git push -u origin master
+git push -u origin main
 
 idx=$((idx+1))
 echo $idx > ./touch
