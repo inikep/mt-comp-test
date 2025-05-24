@@ -55,7 +55,7 @@ fi
 #echo $arc
 [ -f $ARC ] || { echo file "$ARC" not found; exit 1; }
 
-PAK=lbzip2
+PAK=./lbzip2
 EXT=.bz2
 OPTS=-u
 OPT_TH=-n
