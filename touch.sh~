@@ -1,0 +1,11 @@
+#!/bin/sh
+
+idx=$(< ./touch)
+echo $idx
+
+git add ./touch
+git commit -m"touch/$idx"
+git push -u origin master
+
+idx=$((idx+1))
+echo $idx > ./touch
