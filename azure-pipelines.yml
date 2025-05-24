@@ -6,7 +6,8 @@ steps:
 
 - script: |
     set -e
-    sudo apt install libbz2-dev libarchive-dev
+    #sudo apt install libbz2-dev libarchive-dev
+    sudo apt install libtool gnulib gettext
 
     cd mt-comp-test
     ./1-prep.sh
