@@ -1,12 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 
-ARCH=silesia.tar
+ARCH=silesia.tar.1G
 
-./comp-pixz.sh
+sh comp-pixz.sh
 
 echo
 echo "#### ls"
 wc -c $ARCH $ARCH*.xz* | sort -r
 
 echo
-./dec-pixz.sh
+sh dec-pixz.sh

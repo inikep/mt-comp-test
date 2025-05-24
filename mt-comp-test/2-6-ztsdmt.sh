@@ -1,12 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 
-ARCH=silesia.tar
+ARCH=silesia.tar.1G
 
-./comp-zstdmt.sh
+sh comp-zstdmt.sh
 
 echo
 echo "#### ls"
 wc -c $ARCH $ARCH*.zst* | sort -r
 
 echo
-./dec-zstdmt.sh
+sh dec-zstdmt.sh

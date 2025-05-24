@@ -1,7 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 
 NULLDEV=/dev/null
 #NULLDEV=nul # windows
+
+echo
+echo "######## $0 ########"
+echo
 
 ARC="silesia.tar"
 [ -f $ARC ] || \
