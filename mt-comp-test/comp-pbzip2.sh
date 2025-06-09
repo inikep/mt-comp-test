@@ -57,7 +57,7 @@ fi
 
 PAK=./pbzip2
 EXT=.bz2
-OPTS=-b672
+OPTS=-b84
 OPT_TH=-p
 LEVELS="1 5 9"
 REPS=1

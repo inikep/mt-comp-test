@@ -57,7 +57,7 @@ fi
 
 PAK=./plzip
 EXT=.lz
-OPTS=-B64MiB
+OPTS=
 OPT_TH=-n
 LEVELS="0 6 9"
 REPS=1
@@ -65,6 +65,7 @@ REPS=1
 for lv in $LEVELS; do
     echo "## $PAK -$lv"
     echo
+
     for ((th=1; th<=$THREADS; th++)); do
         CMD="$PAK -$lv $OPTS $OPT_TH$th -f -c $ARC > $NULLDEV"
         REPS=`max $(reps_lv $lv) $(reps_th $th)`
@@ -76,6 +77,7 @@ for lv in $LEVELS; do
         sleepts
     done # for th;
 
+    if [ $lv -eq 9 ]; then OPTS="$OPTS -B32MiB"; fi
     CMD="$PAK -$lv $OPTS $OPT_TH$th -f -c $ARC > $ARC$EXT-$lv"
     eval $CMD
 done # for lv;
